@@ -5,13 +5,16 @@ import * as actions from "../../store/actions";
 import "./Login.scss";
 import { FormattedMessage } from "react-intl";
 
+import { handleLoginApi } from "../../services/userService";
+
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "Name",
+      username: "mail",
       password: "1111",
       isShowPassword: false,
+      errMessage: "",
     };
   }
 
@@ -27,8 +30,26 @@ class Login extends Component {
     this.setState({ isShowPassword: !this.state.isShowPassword });
   };
 
-  handleLogin = () => {
-    alert("login");
+  handleLogin = async () => {
+    this.setState({ errMessage: "" });
+
+    try {
+      let data = await handleLoginApi(this.state.username, this.state.password);
+      console.log("1");
+      if (data) {
+        if (data.errCode !== 0) {
+          this.setState({ errMessage: data.message });
+        } else {
+          this.props.userLoginSuccess(data.user);
+        }
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.data) {
+          this.setState({ errMessage: error.response.data.message });
+        }
+      }
+    }
   };
 
   render() {
@@ -66,6 +87,9 @@ class Login extends Component {
                 </span>
               </div>
             </div>
+            <div className="col-12" style={{ color: "red" }}>
+              {this.state.errMessage}
+            </div>
             <div className="col-12">
               <button className="btn-login" onClick={() => this.handleLogin()}>
                 Login
@@ -97,9 +121,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (path) => dispatch(push(path)),
-    adminLoginSuccess: (adminInfo) =>
-      dispatch(actions.adminLoginSuccess(adminInfo)),
-    adminLoginFail: () => dispatch(actions.adminLoginFail()),
+    //userLoginFail: () => dispatch(actions.adminLoginFail()),
+    userLoginSuccess: (userInfo) =>
+      dispatch(actions.userLoginSuccess(userInfo)),
   };
 };
 
