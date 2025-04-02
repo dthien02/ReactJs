@@ -1,9 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, useImperativeHandle } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./UserManage.scss";
-import { getAllUsers, createNewUserService } from "../../services/userService";
+import {
+  getAllUsers,
+  createNewUserService,
+  deleteUserService,
+} from "../../services/userService";
 import ModalUser from "./ModalUser";
+import { emitter } from "../../utils/emitter";
 
 class UserManage extends Component {
   constructor(props) {
@@ -47,6 +52,22 @@ class UserManage extends Component {
           await this.getAlUsersFromReact();
           alert("Added new user!");
           this.setState({ isOpenModalUser: false });
+          emitter.emit("EVENT_CLEAR_MODAL_DATA");
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handleDeleteUser = async (user) => {
+    try {
+      let response = await deleteUserService(user.id);
+      if (response) {
+        if (response.errCode !== 0) {
+          alert(response.errMessage);
+        } else {
+          await this.getAlUsersFromReact();
         }
       }
     } catch (e) {
@@ -86,7 +107,7 @@ class UserManage extends Component {
               {arrUsers &&
                 arrUsers.map((item, index) => {
                   return (
-                    <tr>
+                    <tr key={index}>
                       <td>{item.email}</td>
                       <td>{item.firstName}</td>
                       <td>{item.lastName}</td>
@@ -95,7 +116,10 @@ class UserManage extends Component {
                         <button className="btn-edit">
                           <i className="far fa-edit"></i>
                         </button>
-                        <button className="btn-delete">
+                        <button
+                          className="btn-delete"
+                          onClick={() => this.handleDeleteUser(item)}
+                        >
                           <i className="far fa-trash-alt"></i>
                         </button>
                       </td>
