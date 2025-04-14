@@ -2,36 +2,40 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Slider from "react-slick";
 
-class MedicalFacility extends Component {
+class Handbook extends Component {
   render() {
     return (
-      <div className="section-medical-facility section-share">
+      <div className="section-handbook section-share">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Cơ sở y tế nổi bật</span>
+            <span className="title-section">Cẩm nang</span>
             <button className="btn-section">Xem thêm</button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>
               <div className="section-custom">
-                <div className="bg-img section-medical-facility" />
+                <div className="bg-img section-handbook" />
                 <div>Cơ xương khớp 1</div>
               </div>
               <div className="section-custom">
-                <div className="bg-img section-medical-facility" />
-                <div>Cơ xương khớp 2</div>
+                <div className="bg-img section-handbook" />
+                <div>Cơ xương khớp 1</div>
               </div>
               <div className="section-custom">
-                <div className="bg-img section-medical-facility" />
-                <div>Cơ xương khớp 3</div>
+                <div className="bg-img section-handbook" />
+                <div>Cơ xương khớp 1</div>
               </div>
               <div className="section-custom">
-                <div className="bg-img section-medical-facility" />
-                <div>Cơ xương khớp 4</div>
+                <div className="bg-img section-handbook" />
+                <div>Cơ xương khớp 1</div>
               </div>
               <div className="section-custom">
-                <div className="bg-img section-medical-facility" />
-                <div>Cơ xương khớp 5</div>
+                <div className="bg-img section-handbook" />
+                <div>Cơ xương khớp 1</div>
+              </div>
+              <div className="section-custom">
+                <div className="bg-img section-handbook" />
+                <div>Cơ xương khớp 1</div>
               </div>
             </Slider>
           </div>
@@ -52,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalFacility);
+export default connect(mapStateToProps, mapDispatchToProps)(Handbook);

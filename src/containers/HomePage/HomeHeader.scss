@@ -2,6 +2,11 @@
   height: 80px;
   width: 100%;
   padding: 10px 70px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 3;
+  border-bottom: #f5945c 2px solid;
 
   .home-header-content {
     width: 100%;
