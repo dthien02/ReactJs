@@ -10,6 +10,7 @@ class HomeFooter extends Component {
           <a
             href="https://i.pinimg.com/originals/e2/03/9c/e2039c9c49130816247c460cd7b4f3d7.jpg"
             target="_blank"
+            rel="noreferrer"
           >
             Visit Linda Cẩm Lan <i>sục</i>
           </a>
